@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Verificação OTP</title>
+    <link rel="stylesheet" href="/css/VOTPstyle.css">
+</head>
+<body>
+    <h1>Insira o Código OTP</h1>
+    <form method="post" action="/verify-otp">
+        <a></a>
+        <label for="otp">Insira o código OTP:</label>
+        <input type="text" id="otp" name="providedOTP" required>
+        <button type="submit">Verificar</button>
+    </form>
+    <!-- Exibe a mensagem de erro, se existir -->
+    <p></p>
+    <p th:if="${error}" th:text="${error}" style="color:red;"></p>
+</body>
+</html>

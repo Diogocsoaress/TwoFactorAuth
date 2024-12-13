@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    background-color: #000; /* Fundo preto */
+    color: #fff; /* Texto branco */
+    padding: 0 2rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-top: 50px; /* Distância do topo */
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.qr-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.qr-container img {
+    width: 250px; /* Tamanho do QR Code */
+    height: 250px;
+    margin-bottom: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: #fff; /* Links brancos */
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #a8a8a8; /* Cor mais clara no hover */
+}
+
+.key-manual {
+    font-size: 0.9rem; /* Tamanho menor para a chave manual */
+    text-align: center;
+    margin-top: 10px;
+    word-wrap: break-word; /* Quebra a linha automaticamente */
+    line-height: 1.4; /* Espaçamento entre as linhas */
+}
+
+.key-manual p {
+    margin-bottom: 5px; /* Espaçamento entre as partes do texto */
+}
+
+.key-manual strong {
+    color: #fff; /* Texto da chave manual em branco */
+    font-weight: 600;
+    white-space: normal; /* Garante que a chave manual quebre linhas */
+    word-wrap: break-word; /* Quebra a linha se necessário */
+}

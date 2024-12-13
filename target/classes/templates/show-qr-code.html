@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Configure o Google Authenticator</title>
+    <link rel="stylesheet" href="/css/OTPstyle.css">
+</head>
+<body>
+    <h1>Configure o Google Authenticator</h1>
+    <p>Use o Google Authenticator ou qualquer outra app de TOTP para escanear o código QR abaixo:</p>
+    
+    <!-- Exibe o QR Code -->
+    <div class="qr-container">
+        <img th:src="'data:image/png;base64,' + ${qrCodeImage}" alt="QR Code">
+    </div>
+    <div class="key-manual">
+        <p>Se não conseguir escanear, insira esta chave manualmente: </p>
+        <strong th:text="${qrCodeUrl}"></strong>
+    </div>
+    <a></a>
+    <a href="/req/login">Ir para Login</a>
+</body>
+</html>

@@ -1,0 +1,12 @@
+C:\Users\jogos\Dropbox\1º Semestre 24-25\Projeto 2factor SD\TwoFactorAuth\src\main\java\com\twofactor\authentication\AuthenticationApplication.java
+C:\Users\jogos\Dropbox\1º Semestre 24-25\Projeto 2factor SD\TwoFactorAuth\src\main\java\com\twofactor\authentication\Controller\ContentController.java
+C:\Users\jogos\Dropbox\1º Semestre 24-25\Projeto 2factor SD\TwoFactorAuth\src\main\java\com\twofactor\authentication\Controller\RegistrationController.java
+C:\Users\jogos\Dropbox\1º Semestre 24-25\Projeto 2factor SD\TwoFactorAuth\src\main\java\com\twofactor\authentication\Controller\TwoFactorController.java
+C:\Users\jogos\Dropbox\1º Semestre 24-25\Projeto 2factor SD\TwoFactorAuth\src\main\java\com\twofactor\authentication\Model\AppUser.java
+C:\Users\jogos\Dropbox\1º Semestre 24-25\Projeto 2factor SD\TwoFactorAuth\src\main\java\com\twofactor\authentication\Model\AppUserRepository.java
+C:\Users\jogos\Dropbox\1º Semestre 24-25\Projeto 2factor SD\TwoFactorAuth\src\main\java\com\twofactor\authentication\Model\AppUserService.java
+C:\Users\jogos\Dropbox\1º Semestre 24-25\Projeto 2factor SD\TwoFactorAuth\src\main\java\com\twofactor\authentication\Model\UserStatus.java
+C:\Users\jogos\Dropbox\1º Semestre 24-25\Projeto 2factor SD\TwoFactorAuth\src\main\java\com\twofactor\authentication\Security\Filter\OTPValidationFilter.java
+C:\Users\jogos\Dropbox\1º Semestre 24-25\Projeto 2factor SD\TwoFactorAuth\src\main\java\com\twofactor\authentication\Security\SecurityConfig.java
+C:\Users\jogos\Dropbox\1º Semestre 24-25\Projeto 2factor SD\TwoFactorAuth\src\main\java\com\twofactor\authentication\Utils\QRCodeUtil.java
+C:\Users\jogos\Dropbox\1º Semestre 24-25\Projeto 2factor SD\TwoFactorAuth\src\main\java\com\twofactor\authentication\Utils\TOTPUtil.java

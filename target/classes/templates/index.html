@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logged In</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000000;
+        }
+        .message {
+            font-size: 2.5rem;
+            color: #ffffff; /* Verde escuro */
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+        }
+        .btn-logout {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .btn-logout:hover {
+            background-color: #cc0000;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="message">
+        You are logged in!
+    </div>
+    <form action="/logout" method="post" style="display: inline;">
+        <button type="submit" class="btn-logout">Logout</button>
+    </form>
+</body>
+</html>

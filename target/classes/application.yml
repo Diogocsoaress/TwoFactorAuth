@@ -1,0 +1,18 @@
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL} #Variáveis definidas no Docker-compose.yml
+    username: ${SPRING_DATASOURCE_USERNAME}  
+    password: ${SPRING_DATASOURCE_PASSWORD}  
+  jpa:
+    hibernate:
+      ddl-auto: none  #Não tem estado definido para apenas as instâncias no docker alterarem a DB
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true

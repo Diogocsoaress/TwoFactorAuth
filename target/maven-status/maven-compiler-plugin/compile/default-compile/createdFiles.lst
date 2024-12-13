@@ -1,0 +1,13 @@
+com\twofactor\authentication\Controller\ContentController.class
+com\twofactor\authentication\AuthenticationApplication.class
+com\twofactor\authentication\Controller\TwoFactorController.class
+com\twofactor\authentication\Model\AppUserService.class
+com\twofactor\authentication\Model\UserStatus.class
+com\twofactor\authentication\Utils\TOTPUtil.class
+com\twofactor\authentication\Security\Filter\OTPValidationFilter.class
+com\twofactor\authentication\Security\SecurityConfig$1.class
+com\twofactor\authentication\Model\AppUser.class
+com\twofactor\authentication\Utils\QRCodeUtil.class
+com\twofactor\authentication\Model\AppUserRepository.class
+com\twofactor\authentication\Controller\RegistrationController.class
+com\twofactor\authentication\Security\SecurityConfig.class

@@ -1,0 +1,144 @@
+x-postgres-common:
+  &postgres-common
+  image: postgres:14-alpine
+  healthcheck:
+    test: 'pg_isready -U postgres --dbname=postgres'
+    interval: 10s
+    timeout: 5s
+    retries: 5
+
+services:
+  postgres_primary:
+    <<: *postgres-common
+    container_name: PG_MASTER
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: registration
+      POSTGRES_PASSWORD: 7437
+      POSTGRES_HOST_AUTH_METHOD: "scram-sha-256\nhost replication all 0.0.0.0/0 md5"
+      POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256"
+    command: |
+      postgres 
+      -c wal_level=replica 
+      -c hot_standby=on 
+      -c max_wal_senders=10 
+      -c max_replication_slots=10 
+      -c hot_standby_feedback=on
+    volumes:
+      - pg_master_data:/var/lib/postgresql/data
+      - ./00_init.sql:/docker-entrypoint-initdb.d/00_init.sql 
+    networks:
+      - auth_net
+
+  postgres_replica:
+    <<: *postgres-common
+    container_name: PG_SLAVE
+    ports:
+      - 5434:5432
+    environment:
+      PGUSER: replicator
+      PGPASSWORD: 7437
+    command: |
+      bash -c "
+      rm -rf /var/lib/postgresql/data/*
+      until pg_basebackup --pgdata=/var/lib/postgresql/data -R --slot=replication_slot --host=PG_MASTER --port=5432
+      do
+        echo 'Waiting for primary to connect...'
+        sleep 1s
+      done
+      echo 'Backup done, starting replica...'
+      chown -R postgres:postgres /var/lib/postgresql/data
+      chmod 0700 /var/lib/postgresql/data
+      exec su postgres -c 'postgres'
+      "
+    depends_on:
+      - postgres_primary
+    volumes:
+      - pg_slave_data:/var/lib/postgresql/data
+    networks:
+      - auth_net
+
+  SBT_1:
+    image: authentication-app
+    container_name: SBT_1
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://PG_MASTER:5432/registration
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 7437
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
+      SPRING_JPA_SHOW_SQL: "true"
+    depends_on:
+      - postgres_primary
+    entrypoint: |
+      bash -c "
+      until nc -z PG_MASTER 5432; do
+        echo 'Waiting for database to be ready...'
+        sleep 2
+      done
+      java -jar /app/app.jar
+      "
+    networks:
+      - auth_net
+
+  SBT_2:
+    image: authentication-app
+    container_name: SBT_2
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://PG_MASTER:5432/registration
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 7437
+      SPRING_JPA_HIBERNATE_DDL_AUTO: none
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
+      SPRING_JPA_SHOW_SQL: "true"
+    depends_on:
+      - postgres_primary
+    entrypoint: |
+      bash -c "
+      until nc -z PG_MASTER 5432; do
+        echo 'Waiting for database to be ready...'
+        sleep 2
+      done
+      java -jar /app/app.jar
+      "
+    networks:
+      - auth_net
+
+  haproxy:
+    image: haproxy:latest
+    container_name: haproxy_test
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    ports:
+      - "8088:8088" 
+    networks:
+      - auth_net
+      
+  NGINX:
+    image: nginx:latest
+    container_name: NGINX
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - nginx_data:/var/log/nginx
+    depends_on:
+      - SBT_1
+      - SBT_2
+    networks:
+      - auth_net
+
+networks:
+  auth_net:
+    name: auth_net
+    driver: bridge
+
+volumes:
+  pg_master_data:
+    name: pg_master_data
+  pg_slave_data:
+    name: pg_slave_data
+  nginx_data:
+    name: nginx_data
